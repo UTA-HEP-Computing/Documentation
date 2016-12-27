@@ -1,6 +1,5 @@
 #include "validator.h"
 
-
 const std::vector <std::string> stags = {"-h", "-i", "-ln", "-lu", "-t", "-sk"};
 const std::vector <std::string> ltags = {"-help", "-interact", "-nodes", "-users", "-torque", "-sshkey"};
 const int numtags = stags.size();

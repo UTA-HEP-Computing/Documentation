@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include <iostream>
+#include <exception>
 
 #include <unistd.h>
 
@@ -13,8 +14,8 @@ public:
 	void welcome();
 	void menucommands();
 
-	void noarg();
 	void help();
+	void errorout(int errarg);
 };
 
 #endif

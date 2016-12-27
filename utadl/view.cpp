@@ -19,13 +19,6 @@ void View::menucommands()
 	<< "\t2 - View \n" ;
 }
 
-void View::noarg()
-{
-	cout 
-	<< "No arguments specified.\n"
-	<< "Use -h or -help flag for usage.\n";
-}
-
 void View::help()
 {
 	cout
@@ -49,4 +42,32 @@ void View::help()
 	<< endl
 	<< "-sk" << '\t' << "-sshkey" << "\t\t" << "will generate sshkey for user, important for Torque usage"
 	<< endl;
+}
+
+
+void View::errorout(int errarg)
+{
+	switch (errarg)
+	{
+		case 0:
+		cerr 
+		<< "ERROR 0: Could not parse internal argument." << endl;
+		break;
+
+		case 1:
+		cerr 
+		<< "ERROR 1: Could not execute commands." << endl
+		<< "Use -h or -help flag for usage." << endl;
+		break;
+
+		case 2:
+		cerr 
+		<< "ERROR 2: No arguments specified." << endl
+		<< "Use -h or -help flag for usage." << endl;
+		break;
+
+		default:
+		cerr 
+		<< "ERROR X: Unknown error occured." << endl;
+	}
 }

@@ -1,9 +1,7 @@
 #include "controller.h"
 
-
 using namespace std;
 
-//CLI 
 void Controller::CLI(int argc, char** argv)
 {
 	try
@@ -44,13 +42,13 @@ void Controller::CLI(int argc, char** argv)
 			break;
 
 			default:
-			cerr << "Could not execute command." << endl;
+			v.errorout(1);
 		}
-
 	}
+
 	catch (...)
 	{
-		cerr << "Could not execute command." << endl;
+		v.errorout(1);
 	}
 }
 
@@ -76,8 +74,7 @@ void Controller::nodes()
 	for (int i = 0; i < (int)data.size(); i++)
 	{
 		cout << data[i];
-	}
-	
+	}	
 }
 
 void Controller::users()
@@ -89,9 +86,10 @@ void Controller::users()
 	{
 		cout << data[i];
 	}
-
 }
 
+
+// Used for generating job files- may require supporting classes
 void Controller::torque()
 {
 
@@ -99,29 +97,31 @@ void Controller::torque()
 
 void Controller::sshkey()
 {
-	//v.sskgenmsg(1);
+	//v.sskgenmsg(true);
 	system("ssh-keygen -f ~/.ssh/id_rsa");
 
 
 
 }
 
+// Update this function 
+// Need cleaner way of storing system calls
 vector <string> Controller::stparser(string command, int maxline)
 {
 	vector <string> data;
 	try
 	{
-		FILE *stream = popen(command.c_str(), "r");
+		FILE *cmdout = popen(command.c_str(), "r");
 
-		const int max_buffer = 1024;
-		char buffer[max_buffer];
+		const int buffmax = 1024;
+		char buffer[buffmax];
 		int lines = 0;
 
-		if (stream)
+		if (cmdout)
 		{
-			while (!feof(stream))
+			while (!feof(cmdout))
 			{
-				if (fgets(buffer, max_buffer, stream) != NULL)
+				if (fgets(buffer, buffmax, cmdout) != NULL)
 				{
 					data.push_back(buffer);
 					if (lines == maxline)
@@ -131,12 +131,12 @@ vector <string> Controller::stparser(string command, int maxline)
 					lines++;
 				}
 			}
-			pclose(stream);
+			pclose(cmdout);
 		}
 	}
 	catch (...)
 	{
-		cerr << "Could not parse internal argument." << endl;
+		v.errorout(0);
 	}
 	return data;
 }

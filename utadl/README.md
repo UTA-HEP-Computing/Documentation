@@ -1,5 +1,6 @@
 utadl is a cli tool to help get new users started with using torque, checking free nodes, and creating ssh keys. 
-Additionally sudoers have the ability to create ldap users, and check if users are running jobs. 
+
+Created to be used on linux cluster
 
 
 Use cases: 
@@ -11,6 +12,7 @@ general:
 2. ping machines for activity
 3. help list commands and usage
 4. create ssh keys
+5. 
 
 sudoer:
 1. create ldap users
@@ -50,4 +52,10 @@ code notes:
 need to validate arguments, seperate class
 
 also need to validate inputs for form generation
+
+MVC MVC MVC
+
+Dockerize for nmap? boost? 
+
+switch to cpp based pinger insteaf of system("nmap") hack.
 

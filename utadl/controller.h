@@ -1,5 +1,5 @@
 #ifndef CONTROLLER_H
-#define CONTROLLER_H 2016
+#define CONTROLLER_H
 
 #include <vector>
 #include <string>
@@ -22,11 +22,9 @@ public:
 
 	std::vector <std::string> stparser(std::string command, int maxline);
 
-
 private:
 	View v;
 	int lflag;
-
 };
 
 #endif

@@ -1,0 +1,32 @@
+1. Torque usage and form generation
+2. ping machines for activity
+3. help list commands and usage
+
+
+sudo only use cases
+
+1. create ldap users
+2. check user resource usage
+3. 
+
+
+
+
+
+
+
+utadl:
+	-h or -help
+	command list
+
+	-ln or -list
+	list nodes
+
+	-t or -torque
+	runs torque form generator, make one liner option (-c)
+
+	-lu or -users
+	list users and if they're running a job (system resource usage)
+
+
+

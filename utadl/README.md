@@ -8,8 +8,8 @@ Use cases:
 general:
 1. Torque usage and form generation
 	a. form generation based on ldap info
-
-2. ping machines for activity
+	b. check job status
+2. ping to see if nodes are up
 3. help list commands and usage
 4. create ssh keys
 5. 
@@ -34,7 +34,8 @@ utadl:
 
 	-t or -torque
 	runs torque form generator, make one liner option (-c)
-
+		-c [or -create] one liner args that generates 
+		-l [or -list] lists torque jobs
 	-lu or -users
 	list users and if they're running a job (system resource usage)
 

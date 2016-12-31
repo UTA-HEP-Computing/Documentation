@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <iostream>
 
 #include "view.h"
 #include "validator.h"
@@ -17,7 +16,7 @@ public:
 	void help();
 	void nodes();
 	void users();
-	void torque();
+	void torque(int argc, char** argv);
 	void sshkey();
 
 	std::vector <std::string> stparser(std::string command, int maxline);

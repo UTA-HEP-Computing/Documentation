@@ -11,7 +11,6 @@ void Controller::CLI(int argc, char** argv)
 			if (((string)argv[1]).compare(ltags[i]) == 0 || ((string)argv[1]).compare(stags[i]) == 0)
 			{
 				lflag = i;
-
 			}
 		}
 
@@ -44,9 +43,7 @@ void Controller::CLI(int argc, char** argv)
 		default:
 			v.errorout(1);
 		}
-
 	}
-
 	catch (...)
 	{
 		v.errorout(1);
@@ -66,7 +63,7 @@ void Controller::help()
 
 void Controller::nodes()
 {
-	vector <string> data, ips;
+	vector <string> cmdout, ips;
 	string temp, command = "fping -t50 ";
 
 	if (isroot())
@@ -82,16 +79,13 @@ void Controller::nodes()
 	{
 		temp = command;
 		temp.append(ip);
-		data = bashout(temp, 7);
-		cout << data[0];
+		cmdout = bashout(temp, 7);
+		cout << cmdout[0];
 	}
-
-
 }
 
 void Controller::users()
 {
-
 	vector <string> data = bashout("users", 1);
 
 	for (int i = 0; i < (int)data.size(); i++)
@@ -99,7 +93,6 @@ void Controller::users()
 		cout << data[i];
 	}
 }
-
 
 // Used for generating job files- may require supporting classes
 void Controller::torque(int argc, char** argv)
@@ -112,12 +105,9 @@ void Controller::torque(int argc, char** argv)
 
 void Controller::sshkey()
 {
-	//v.sskgenmsg(true);
-	system("ssh-keygen -f ~/.ssh/id_rsa");
+	system("ssh-keygen -f ~/.ssh/id_rsa -q -N \"\" ");
 }
 
-// Update this function
-// Need cleaner way of storing system calls
 vector <string> Controller::bashout(string command, int maxline = 100)
 {
 	vector <string> data;

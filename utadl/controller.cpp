@@ -1,5 +1,4 @@
 #include "controller.h"
-#include <sys/socket.h>
 
 using namespace std;
 
@@ -12,39 +11,39 @@ void Controller::CLI(int argc, char** argv)
 			if (((string)argv[1]).compare(ltags[i]) == 0 || ((string)argv[1]).compare(stags[i]) == 0)
 			{
 				lflag = i;
-				switch(i)
-				{
-					case 0: //HELP
-					help();
-					break;
-		
-					case 1: //INTERACT
-					iCLI(argc, argv);
-					break;
-					
-					case 2: //NODES
-					nodes();
-					break;
-					
-					case 3: //USERS
-					users();
-					break;
-					
-					case 4: //TORQUE
-					torque(argc, argv);
-					break;
-		
-					case 5: //SSHKEY
-					sshkey();
-					break;
-		
-					default:
-					v.errorout(1);
-				}
-				break;
+
 			}
 		}
 
+		switch (lflag)
+		{
+		case 0: //HELP
+			help();
+			break;
+
+		case 1: //INTERACT
+			iCLI(argc, argv);
+			break;
+
+		case 2: //NODES
+			nodes();
+			break;
+
+		case 3: //USERS
+			users();
+			break;
+
+		case 4: //TORQUE
+			torque(argc, argv);
+			break;
+
+		case 5: //SSHKEY
+			sshkey();
+			break;
+
+		default:
+			v.errorout(1);
+		}
 
 	}
 
@@ -67,23 +66,34 @@ void Controller::help()
 
 void Controller::nodes()
 {
-	vector <string> data;
-	string command = "nmap ";
-	command.append("192.168.1.254");
-	
-	data = stparser(command, 7);
+	vector <string> data, ips;
+	string temp, command = "fping -t50 ";
 
-	for (int i = 3; i < (int)data.size(); i++)
+	if (isroot())
 	{
-		cout << data[i];
-	}	
+		ips = admin_ips;
+	}
+	else
+	{
+		ips = gener_ips;
+	}
+
+	for (auto ip : ips)
+	{
+		temp = command;
+		temp.append(ip);
+		data = bashout(temp, 7);
+		cout << data[0];
+	}
+
+
 }
 
 void Controller::users()
 {
-	
-	vector <string> data = stparser("users", 1);
-	
+
+	vector <string> data = bashout("users", 1);
+
 	for (int i = 0; i < (int)data.size(); i++)
 	{
 		cout << data[i];
@@ -96,7 +106,7 @@ void Controller::torque(int argc, char** argv)
 {
 	if (argc < 4)
 	{
-		
+
 	}
 }
 
@@ -106,9 +116,9 @@ void Controller::sshkey()
 	system("ssh-keygen -f ~/.ssh/id_rsa");
 }
 
-// Update this function 
+// Update this function
 // Need cleaner way of storing system calls
-vector <string> Controller::stparser(string command, int maxline)
+vector <string> Controller::bashout(string command, int maxline = 100)
 {
 	vector <string> data;
 	try

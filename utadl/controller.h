@@ -19,7 +19,7 @@ public:
 	void torque(int argc, char** argv);
 	void sshkey();
 
-	std::vector <std::string> stparser(std::string command, int maxline);
+	std::vector <std::string> bashout(std::string command, int maxline);
 
 private:
 	View v;

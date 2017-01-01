@@ -8,4 +8,21 @@ const int numtags = stags.size();
 // Separated between gener_ips and admin depending if program is run with sudo priv.
 
 const std::vector <std::string> gener_ips = {"192.168.1.13", "192.168.1.5"};
-const std::vector <std::string> admin_ips = {"192.168.1.3", "192.168.1.4", "192.168.1.5", "192.168.1.7"}; 
+const std::vector <std::string> admin_ips = {"192.168.1.2", "192.168.1.3", "192.168.1.4", "192.168.1.5",
+                                             "192.168.1.6", "192.168.1.7", "192.168.1.13"
+                                            };
+
+const std::vector <std::string> tltags = {""};
+
+
+const 	bool isroot()
+{
+	if ( geteuid() == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

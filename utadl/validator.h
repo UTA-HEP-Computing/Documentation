@@ -1,9 +1,10 @@
 #ifndef VALIDATOR_H
-#define VALIDATOR_H 
+#define VALIDATOR_H
 
 #include <vector>
 #include <string>
 #include <sstream>
+#include <unistd.h>
 #include <iostream>
 #include <exception>
 
@@ -13,5 +14,7 @@ extern const int numtags;
 
 extern const std::vector <std::string> gener_ips;
 extern const std::vector <std::string> admin_ips;
+
+extern const bool isroot();
 
 #endif

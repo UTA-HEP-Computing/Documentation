@@ -79,7 +79,7 @@ void Controller::nodes()
 	{
 		temp = command;
 		temp.append(ip);
-		cmdout = bashout(temp, 7);
+		cmdout = bashout(command + ip, 7);
 		cout << cmdout[0];
 	}
 }

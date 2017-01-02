@@ -42,7 +42,7 @@ utadl:
 	-sk or -sshkey
 	generates ssh keys for torque node access
 
-	-i or -interactive
+	-i or -interact
 	interactive mode
 
 

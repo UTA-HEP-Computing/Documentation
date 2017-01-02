@@ -64,7 +64,7 @@ void Controller::help()
 void Controller::nodes()
 {
 	vector <string> cmdout, ips;
-	string temp, command = "fping -t50 ";
+	string command = "fping -t50 ";
 
 	if (isroot())
 	{
@@ -77,8 +77,6 @@ void Controller::nodes()
 
 	for (auto ip : ips)
 	{
-		temp = command;
-		temp.append(ip);
 		cmdout = bashout(command + ip, 7);
 		cout << cmdout[0];
 	}

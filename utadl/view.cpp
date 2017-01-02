@@ -47,8 +47,6 @@ void View::help()
 
 void View::errorout(int errarg)
 {
-	cerr << "made it here";
-	cout << "made it here out";
 	switch (errarg)
 	{
 	case 0:

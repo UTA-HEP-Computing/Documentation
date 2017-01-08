@@ -1,6 +1,5 @@
 utadl is a general cli tool for use on the UTA HEP DL cluster. Created to help users getting familiar 
 
-For use on the UTA HEP DL cluster.
 
 ---------
 

@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++11 -Wall
 
 output: main.o view.o controller.o validator.o
-	mkdir bin
+	mkdir -p bin
 	$(CXX) $(CXXFLAGS) main.o view.o controller.o validator.o -o bin/utadl
 	rm *.o
 
@@ -22,7 +22,7 @@ clean:
 	rm *.o 
 
 delete:
-	rm utadl
+	rm -r bin
 
 run:
 	./bin/utadl -h

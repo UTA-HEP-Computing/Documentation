@@ -1,6 +1,6 @@
-utadl is a cli tool to help get new users started with using torque, checking free nodes, and creating ssh keys. 
+utadl is a general cli tool for use on the UTA HEP DL cluster. Created to help users getting familiar 
 
-Created to be used on linux cluster
+For use on the UTA HEP DL cluster.
 
 ---------
 
@@ -8,19 +8,19 @@ Use cases:
 
 general:
 
-1. Torque usage and form generation
+1. Torque
   1. form generation based on ldap info
   2. check job status
-2. ping to see if nodes are up
+2. ping general user-access nodes
 3. help list commands and usage
 4. create ssh keys
-5. 
+5. General system guide
 
 sudoer:
 
-1. create ldap users
+1. create ldap users (leave to phpldapadmin)
 2. check user resource usage
-3. 
+3. ping all nodes
 
 
 ---------
@@ -60,17 +60,19 @@ General Notes:
 
 - 
 
-code notes:
 
+Code Notes:
 
-need to validate arguments, seperate class
+- need to validate arguments, seperate class
 
-also need to validate inputs for form generation
+- also need to validate inputs for form generation
 
-MVC MVC MVC
+- MVC MVC MVC
 
-Dockerize for nmap? boost? 
+- check for tools:
+  - fping
+  - boost?
 
-switch to cpp based pinger insteaf of system("nmap") hack.
+- switch to cpp based pinger insteaf of system("nmap") hack.
 
-Would be neat if -g pulled from web, and if net is down load an offline release. 
+- Would be neat if -g pulled from web, and if net is down load an offline release. 

@@ -84,7 +84,7 @@ void Controller::nodes()
 
 void Controller::users()
 {
-	vector <string> data = bashout("users", 1);
+	vector <string> data = bashout("who", 1);
 
 	for (int i = 0; i < (int)data.size(); i++)
 	{

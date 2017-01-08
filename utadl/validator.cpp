@@ -15,14 +15,19 @@ const std::vector <std::string> admin_ips = {"192.168.1.2", "192.168.1.3", "192.
 const std::vector <std::string> tltags = {""};
 
 
-const 	bool isroot()
+const bool isroot()
 {
-	if ( geteuid() == 0)
+	return geteuid() == 0;
+}
+
+const int argselector(int argselect, char ** argv)
+{
+	for (int i = 0; i < numtags; i++)
 	{
-		return true;
+		if (((std::string)argv[argselect]).compare(ltags[i]) == 0 || ((std::string)argv[argselect]).compare(stags[i]) == 0)
+		{
+			return i;
+		}
 	}
-	else
-	{
-		return false;
-	}
+	return -1;
 }

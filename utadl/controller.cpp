@@ -6,15 +6,7 @@ void Controller::CLI(int argc, char** argv)
 {
 	try
 	{
-		for (int i = 0; i < numtags; i++)
-		{
-			if (((string)argv[1]).compare(ltags[i]) == 0 || ((string)argv[1]).compare(stags[i]) == 0)
-			{
-				lflag = i;
-			}
-		}
-
-		switch (lflag)
+		switch (argselector(1, argv))
 		{
 		case 0: //HELP
 			help();
@@ -63,33 +55,20 @@ void Controller::help()
 
 void Controller::nodes()
 {
-	vector <string> cmdout, ips;
+	vector <string> cmdout, ips = (isroot() ? admin_ips : gener_ips);
 	string command = "fping -t50 ";
-
-	if (isroot())
-	{
-		ips = admin_ips;
-	}
-	else
-	{
-		ips = gener_ips;
-	}
 
 	for (auto ip : ips)
 	{
-		cmdout = bashout(command + ip, 7);
-		cout << cmdout[0];
+		cmdout.push_back(bashout(command + ip, 7)[0]);
 	}
+	v.printlist(cmdout);
 }
 
 void Controller::users()
 {
-	vector <string> data = bashout("who", 1);
-
-	for (int i = 0; i < (int)data.size(); i++)
-	{
-		cout << data[i];
-	}
+	vector <string> userlist = bashout("who", 1);
+	v.printlist(userlist);
 }
 
 // Used for generating job files- may require supporting classes
@@ -103,7 +82,13 @@ void Controller::torque(int argc, char** argv)
 
 void Controller::sshkey()
 {
-	system("ssh-keygen -f ~/.ssh/id_rsa -q -N \"\" ");
+	if (!isroot())
+	{
+		system("ssh-keygen -f ~/.ssh/id_rsa -q -N \"\" ");
+		return;
+	}
+
+	v.errorout(3);
 }
 
 vector <string> Controller::bashout(string command, int maxline = 100)

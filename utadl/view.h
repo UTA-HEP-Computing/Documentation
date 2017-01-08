@@ -2,6 +2,7 @@
 #define VIEW_H
 
 #include <string>
+#include <vector>
 #include <cstdlib>
 #include <iostream>
 #include <exception>
@@ -16,6 +17,7 @@ public:
 
 	void help();
 	void errorout(int errarg);
+	void printlist(std::vector <std::string> data);
 };
 
 #endif

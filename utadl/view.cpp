@@ -47,6 +47,7 @@ void View::help()
 
 void View::errorout(int errarg)
 {
+	string helpstr =  "Use -h or -help flag for usage.";
 	switch (errarg)
 	{
 	case 0:
@@ -57,17 +58,31 @@ void View::errorout(int errarg)
 	case 1:
 		cerr
 		        << "ERROR 1: Could not execute commands." << endl
-		        << "Use -h or -help flag for usage." << endl;
+		        << helpstr << endl;
 		break;
 
 	case 2:
 		cerr
 		        << "ERROR 2: No arguments specified." << endl
-		        << "Use -h or -help flag for usage." << endl;
+		        << helpstr << endl;
+		break;
+	
+	case 3:
+		cerr
+				<< "ERROR 3: Cannot run command with sudo." << endl;
 		break;
 
 	default:
 		cerr
 		        << "ERROR X: Unknown error occured." << endl;
+	}
+}
+
+
+void View::printlist(vector <string> data)
+{
+	for (auto line : data)
+	{
+		cout << line;
 	}
 }

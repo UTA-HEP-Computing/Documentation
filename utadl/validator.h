@@ -16,5 +16,5 @@ extern const std::vector <std::string> gener_ips;
 extern const std::vector <std::string> admin_ips;
 
 extern const bool isroot();
-
+extern const int argselector(int argselect, char ** argv);
 #endif

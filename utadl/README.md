@@ -2,24 +2,28 @@ utadl is a cli tool to help get new users started with using torque, checking fr
 
 Created to be used on linux cluster
 
+---------
 
 Use cases: 
 
 general:
+
 1. Torque usage and form generation
-	a. form generation based on ldap info
-	b. check job status
+  1. form generation based on ldap info
+  2. check job status
 2. ping to see if nodes are up
 3. help list commands and usage
 4. create ssh keys
 5. 
 
 sudoer:
+
 1. create ldap users
 2. check user resource usage
 3. 
 
 
+---------
 
 
 
@@ -48,6 +52,7 @@ utadl:
 	-g or -guide
 	Invokes man page with general notes taken from gitwiki guide
 
+---------
 
 
 General Notes:

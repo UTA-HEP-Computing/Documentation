@@ -45,7 +45,15 @@ utadl:
 	-i or -interact
 	interactive mode
 
+	-g or -guide
+	Invokes man page with general notes taken from gitwiki guide
 
+
+
+General Notes:
+- Make install will copy executable to /usr/local/bin which will be in $PATH, a configure file is not provided so if a different directory is desired it will need to be installed by hand.
+
+- 
 
 code notes:
 
@@ -60,3 +68,4 @@ Dockerize for nmap? boost?
 
 switch to cpp based pinger insteaf of system("nmap") hack.
 
+Would be neat if -g pulled from web, and if net is down load an offline release. 

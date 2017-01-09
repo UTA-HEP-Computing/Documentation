@@ -44,7 +44,6 @@ void View::help()
 	        << endl;
 }
 
-
 void View::errorout(int errarg)
 {
 	string helpstr =  "Use -h or -help flag for usage.";
@@ -77,7 +76,6 @@ void View::errorout(int errarg)
 		        << "ERROR X: Unknown error occured." << endl;
 	}
 }
-
 
 void View::printlist(vector <string> data)
 {

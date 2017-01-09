@@ -6,7 +6,7 @@ void Controller::CLI(int argc, char** argv)
 {
 	try
 	{
-		switch (argselector(1, argv))
+		switch (argselector(1, 0, argv))
 		{
 		case 0: //HELP
 			help();
@@ -30,6 +30,10 @@ void Controller::CLI(int argc, char** argv)
 
 		case 5: //SSHKEY
 			sshkey();
+			break;
+
+		case 6:
+			guide(argv);
 			break;
 
 		default:
@@ -91,37 +95,23 @@ void Controller::sshkey()
 	v.errorout(3);
 }
 
-vector <string> Controller::bashout(string command, int maxline = 100)
+void Controller::guide(char ** argv)
 {
-	vector <string> data;
-	try
+	switch (argselector(2, 1, argv))
 	{
-		FILE *cmdout = popen(command.c_str(), "r");
+	case 0:
+		system("man utadl_admin");
+		break;
 
-		const int buffmax = 1024;
-		char buffer[buffmax];
-		int lines = 0;
+	case 1:
+		system("man utadl_home");
+		break;
 
-		if (cmdout)
-		{
-			while (!feof(cmdout))
-			{
-				if (fgets(buffer, buffmax, cmdout) != NULL)
-				{
-					data.push_back(buffer);
-					if (lines == maxline)
-					{
-						break;
-					}
-					lines++;
-				}
-			}
-			pclose(cmdout);
-		}
+	case 2:
+		system("man utadl_dlkit");
+		break;
+
+	default:
+		v.errorout(1);
 	}
-	catch (...)
-	{
-		v.errorout(0);
-	}
-	return data;
 }

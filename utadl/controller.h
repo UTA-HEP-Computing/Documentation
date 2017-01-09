@@ -18,8 +18,8 @@ public:
 	void users();
 	void torque(int argc, char** argv);
 	void sshkey();
+	void guide(char ** argv);
 
-	std::vector <std::string> bashout(std::string command, int maxline);
 
 private:
 	View v;

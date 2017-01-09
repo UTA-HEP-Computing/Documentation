@@ -34,3 +34,14 @@ install:
 uninstall:
 	rm /usr/local/man/man1/utadl_*
 	rm /usr/local/bin/utadl
+
+make test:
+	@echo ""
+	@echo "Testing node listing:"
+	./bin/utadl -ln
+	@echo ""
+	@echo "Testing node listing with sudo:"
+	sudo ./bin/utadl -ln
+	@echo ""
+	@echo "Opening man page, if this fails run sudo make install:"
+	./bin/utadl -g admin

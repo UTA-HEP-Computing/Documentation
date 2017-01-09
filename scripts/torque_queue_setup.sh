@@ -4,6 +4,7 @@ echo root@supercomputer > /var/spool/torque/server_priv/acl_svr/operators
 echo root@supercomputer > /var/spool/torque/server_priv/acl_svr/managers
 echo "supercomputer np=48" > /var/spool/torque/server_priv/nodes
 echo "bigbird np=12" > /var/spool/torque/server_priv/nodes
+echo "thingtwo np=12" > /var/spool/torque/server_priv/nodes
 
 echo supercomputer > /var/spool/torque/mom_priv/config
 
@@ -11,6 +12,7 @@ qmgr -c 'create queue cpu_queue'
 qmgr -c 'set queue cpu_queue queue_type = Route'
 qmgr -c 'set queue cpu_queue route_destinations = cpu_super'
 qmgr -c 'set queue cpu_queue route_destinations += cpu_bigbird'
+qmgr -c 'set queue cpu_queue route_destinations += cpu_thingtwo'
 qmgr -c 'set queue cpu_queue enabled = True'
 qmgr -c 'set queue cpu_queue started = True'
 
@@ -34,6 +36,15 @@ qmgr -c 'set queue cpu_bigbird max_user_run = 1'
 qmgr -c 'set queue cpu_bigbird max_queuable = 1'
 qmgr -c 'set queue cpu_bigbird max_running = 12'
 
+qmgr -c 'create queue cpu_thingtwo'
+qmgr -c 'set queue cpu_thingtwo queue_type = Execution'
+qmgr -c 'set queue cpu_thingtwo resources_default.nodes = thingtwo'
+qmgr -c 'set queue cpu_thingtwo resources_default.walltime = 12:00:00'
+qmgr -c 'set queue cpu_thingtwo enabled = True'
+qmgr -c 'set queue cpu_thingtwo started = True'
+qmgr -c 'set queue cpu_thingtwo max_user_run = 1'
+qmgr -c 'set queue cpu_thingtwo max_queuable = 1'
+qmgr -c 'set queue cpu_thingtwo max_running = 12'
 
 qmgr -c 'create queue gpu_queue'
 qmgr -c 'set queue gpu_queue queue_type = Route'
@@ -44,6 +55,12 @@ qmgr -c 'set queue gpu_queue route_destinations += gpu0bigbird'
 qmgr -c 'set queue gpu_queue route_destinations += gpu1bigbird'
 qmgr -c 'set queue gpu_queue route_destinations += gpu2bigbird'
 qmgr -c 'set queue gpu_queue route_destinations += gpu3bigbird'
+
+qmgr -c 'set queue gpu_queue route_destinations += gpu0thingtwo'
+qmgr -c 'set queue gpu_queue route_destinations += gpu1thingtwo'
+qmgr -c 'set queue gpu_queue route_destinations += gpu2thingtwo'
+qmgr -c 'set queue gpu_queue route_destinations += gpu3thingtwo'
+
 qmgr -c 'set queue gpu_queue enabled = True'
 qmgr -c 'set queue gpu_queue started = True'
 
@@ -147,12 +164,63 @@ qmgr -c 'set queue gpu3bigbird max_user_run = 1'
 qmgr -c 'set queue gpu3bigbird max_queuable = 1'
 qmgr -c 'set queue gpu3bigbird max_running = 1'
 
+
+qmgr -c 'create queue gpu_thingtwo'
+qmgr -c 'set queue gpu_thingtwo queue_type = Route'
+qmgr -c 'set queue gpu_thingtwo route_destinations = gpu0thingtwo'
+qmgr -c 'set queue gpu_thingtwo route_destinations += gpu1thingtwo'
+qmgr -c 'set queue gpu_thingtwo route_destinations += gpu2thingtwo'
+qmgr -c 'set queue gpu_thingtwo route_destinations += gpu3thingtwo'
+qmgr -c 'set queue gpu_thingtwo enabled = True'
+qmgr -c 'set queue gpu_thingtwo started = True'
+
+qmgr -c 'create queue gpu0thingtwo'
+qmgr -c 'set queue gpu0thingtwo queue_type = Execution'
+qmgr -c 'set queue gpu0thingtwo resources_default.nodes = thingtwo'
+qmgr -c 'set queue gpu0thingtwo resources_default.walltime = 12:00:00'
+qmgr -c 'set queue gpu0thingtwo enabled = True'
+qmgr -c 'set queue gpu0thingtwo started = True'
+qmgr -c 'set queue gpu0thingtwo max_user_run = 1'
+qmgr -c 'set queue gpu0thingtwo max_queuable = 1'
+qmgr -c 'set queue gpu0thingtwo max_running = 1'
+
+qmgr -c 'create queue gpu1thingtwo'
+qmgr -c 'set queue gpu1thingtwo queue_type = Execution'
+qmgr -c 'set queue gpu1thingtwo resources_default.nodes = thingtwo'
+qmgr -c 'set queue gpu1thingtwo resources_default.walltime = 12:00:00'
+qmgr -c 'set queue gpu1thingtwo enabled = True'
+qmgr -c 'set queue gpu1thingtwo started = True'
+qmgr -c 'set queue gpu1thingtwo max_user_run = 1'
+qmgr -c 'set queue gpu1thingtwo max_queuable = 1'
+qmgr -c 'set queue gpu1thingtwo max_running = 1'
+
+qmgr -c 'create queue gpu2thingtwo'
+qmgr -c 'set queue gpu2thingtwo queue_type = Execution'
+qmgr -c 'set queue gpu2thingtwo resources_default.nodes = thingtwo'
+qmgr -c 'set queue gpu2thingtwo resources_default.walltime = 12:00:00'
+qmgr -c 'set queue gpu2thingtwo enabled = True'
+qmgr -c 'set queue gpu2thingtwo started = True'
+qmgr -c 'set queue gpu2thingtwo max_user_run = 1'
+qmgr -c 'set queue gpu2thingtwo max_queuable = 1'
+qmgr -c 'set queue gpu2thingtwo max_running = 1'
+
+qmgr -c 'create queue gpu3thingtwo'
+qmgr -c 'set queue gpu3thingtwo queue_type = Execution'
+qmgr -c 'set queue gpu3thingtwo resources_default.nodes = thingtwo'
+qmgr -c 'set queue gpu3thingtwo resources_default.walltime = 12:00:00'
+qmgr -c 'set queue gpu3thingtwo enabled = True'
+qmgr -c 'set queue gpu3thingtwo started = True'
+qmgr -c 'set queue gpu3thingtwo max_user_run = 1'
+qmgr -c 'set queue gpu3thingtwo max_queuable = 1'
+qmgr -c 'set queue gpu3bigbird max_running = 1'
+
 qmgr -c 'set server scheduling = true'
 qmgr -c 'set server keep_completed = 300'
 qmgr -c 'set server mom_job_sync = true'
 
 qmgr -c 'set server submit_hosts = supercomputer'
 qmgr -c 'set server submit_hosts += bigbird'
+qmgr -c 'set server submit_hosts += thingtwo'
 
 qmgr -c 'set server default_queue = gpu_queue'
 

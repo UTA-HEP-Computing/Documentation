@@ -1,0 +1,114 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+To get started with UTA\-HEP\-Computing you will need to first get a login for the gateway computer as well as for the interactive node\. If you do not have a valid login that will be the first thing you need\. If this is your first time logging in please refer to the two sections below for reference on how to do so\. Otherwise please skip the first two sections and move on to the “Concepts and References” section\.
+.
+.SH "Things To Do:"
+.
+.IP "\(bu" 4
+Set up a test environment Mac/Ubuntu – your terminal is sufficient Windows – Install Ubuntu in VirtualBox or on a separate partition\. https://www\.virtualbox\.org http://www\.howtogeek\.com/214571/how\-to\-dual\-boot\-linux\-on\-your\-pc/
+.
+.IP "\(bu" 4
+Sign up for GitHub\. https://github\.com
+.
+.IP "" 0
+.
+.P
+Logging in to UTA\-HEP Cluster:
+.
+.P
+References:
+.
+.IP "\(bu" 4
+orodruin public gateway: orodruin\.uta\.edu (192\.168\.1\.13)
+.
+.IP "\(bu" 4
+supercomputer local IP: 192\.168\.1\.5
+.
+.IP "" 0
+.
+.P
+Notes:
+.
+.IP "\(bu" 4
+You can use “passwd” on both computers to change your temp password (please do this as soon as possible)\.
+.
+.IP "\(bu" 4
+In order to connect (ssh) to the supercomputer, you must first ssh to the gateway to gain access to the local network\.
+.
+.IP "\(bu" 4
+The /data directory should be used for important things that need to be backed up and the /scratch directory should be used as a temporary work space\.
+.
+.IP "\(bu" 4
+For quick access, it’s recommend to set up RSA keys on both orodruin and the supercomputer\.
+.
+.IP "\(bu" 4
+We utilize python virtual environments in order to combat dependency issues\. https://virtualenvwrapper\.readthedocs\.io/en/latest/
+.
+.IP "\(bu" 4
+An alternative to ssh\-ing twice would be the use of the Proxy Command in your local ~/\.ssh/config file\.
+.
+.IP "" 0
+.
+.P
+Example (where $USER is your username):
+.
+.P
+Host: orodruin Hostname: orodruin\.uta\.edu User: $USER Host: supercomputer ProxyCommand: ssh \-q orodruin nc 192\.168\.1\.5 22
+.
+.P
+Concepts & References:
+.
+.P
+Here are list of items that you should be familiar with in order to get a solid head start on the work\. Learning everything there is to know is going to be impossible but the more you know the better off you’ll be\.
+.
+.IP "\(bu" 4
+VirtualBox \- This is used to emulate a Linux OS on your Windows machine so you can practice\. If you want to go through the effort of learning how to “dual boot” it’ll teach you a lot but it is not required\. https://www\.virtualbox\.org/wiki/Downloads
+.
+.IP "\(bu" 4
+Ubuntu \- This is a standard distribution (read as: “flavor”) of Linux that is user friendly and will help you get started understanding the core fundamentals of Linux\. http://www\.ubuntu\.com/
+.
+.IP "\(bu" 4
+Bash \- This is the programming language that is most commonly used to interact with a Linux computer in a non\-graphical manner (aka a shell)\. https://www\.codecademy\.com/en/courses/learn\-the\-command\- line/lessons/environment/exercises/bash\-profile http://linuxcommand\.org/learning_the_shell\.php
+.
+.IP "\(bu" 4
+SSH \- This is a protocol for connecting to another machine using Bash https://www\.digitalocean\.com/community/tutorials/how\-to\-use\-ssh\-to\-connect\-to\-a\-remote\-server\-in\-ubuntu
+.
+.IP "\(bu" 4
+Python \- This is the primary programming language we use to write actual code to process data\. (Usually one would execute a python program from a bash shell\.) https://www\.codecademy\.com/learn/python
+.
+.IP "\(bu" 4
+Pip \- This is a package manager for python\. It handles installing updating, and removing non\-standard python libraries / packages\. https://pip\.pypa\.io/en/stable/installing/
+.
+.IP "\(bu" 4
+Tensorflow / Keras \- This is a python framework used to build neural networks and a lot of other fancy things\. https://www\.tensorflow\.org/ https://www\.tensorflow\.org/versions/r0\.10/tutorials/mnist/beginners/index\.html (basic)
+.
+.IP "" 0
+.
+.P
+NN intro, very beginner friendly http://colah\.github\.io/posts/2015\-09\-Visual\-Information/ http://colah\.github\.io/posts/2014\-10\-Visualizing\-MNIST/
+.
+.br
+(VERY AWESOME, ALSO VERY GRAPHICALLY INTENSE) http://playground\.tensorflow\.org/ https://keras\.io/
+.
+.IP "\(bu" 4
+NumPy \- This is a matrix manipulation library, not critical to know but helpful nonetheless\. http://www\.numpy\.org/
+.
+.IP "\(bu" 4
+DLKit \- This is our learning framework built on Keras\. https://bitbucket\.org/anomalousai/dlkit
+.
+.IP "\(bu" 4
+GitHub \- This is where you should store code, it uses the git protocol which is dead simple! https://github\.com/ (Make an account please) https://www\.codecademy\.com/learn/learn\-git https://github\.com/UTA\-HEP\-Computing (This is our organization’s “repo” (repository) AKA place where we store code and documentation\.)
+.
+.IP "\(bu" 4
+DIGITS \- This is a neural network framework in\-a\-box\. It utilizes either the Caffe or Torch computing frameworks to build, train, and analyze models\. https://github\.com/NVIDIA/DIGITS http://caffe\.berkeleyvision\.org/ http://torch\.ch/
+.
+.IP "\(bu" 4
+Caroline \- Caroline is a wrapper that facilitates job submission to Torque for Docker containers! https://github\.com/wghilliard/caroline
+.
+.IP "\(bu" 4
+Extra Credit \- Docker \- This is kind of like Virtual Box but not really, too much of an explanation for a short how to\. https://www\.docker\.com/ https://www\.docker\.com/what\-docker
+.
+.IP "" 0
+.
+.P
+https://github\.com/adam\-p/markdown\-here/wiki/Markdown\-Cheatsheet

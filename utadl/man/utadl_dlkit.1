@@ -1,0 +1,179 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+Basics Systems: “Supercomputer” 24\-core (48 threads with hyperthreading) 128 GB RAM Disks: Root (/) and home disk (/home) 2GB/s cache Mirrore d drives for failure protection\. Home backup\. (TBD) /data: Data Disk\. 19 TB\. Raided to protect against Single Drive Failure\. NFS Mounted (hosted on Ditto) 10 Gb NIC (soon) NFS Cache on SSD (soon) /scratch: Scratch Disk\. 30 TB\. No failure protection
+.
+.br
+Old /data is in /home/old_data “Ditto”: 6\-core (12 Thread) disk server “Orodruin”: 12/24 Mac OS X\. Current gateway\. Will be migrated to linux\. “Blacktower”: 12/24 Mac OS X\. Will likely be migrated to linux\. Software: Ubuntu 16\.04 (and 14\.04?) New: will try to use virtualenv for to avoid installation conflicts\. New: Torque batch queue system\. GPU Queues Digits: NVidia’s image classification web\-app… (TBD) Remote access via ssh Remote access to the machines only possible via ssh\. Two paths: Windows: Putty? (good luck…) Install Virtual Machine (e\.g\. Virtual Box)\. Install Linux (e\.g\. Ubuntu) in VM\. Dual Boot\. MacOS: Unix underneath Might want to install XCode, XCode commandline tools, XQuartz, and homebrew\. Linux: Suggest Ubuntu 14\.04 or 16\.04
+.
+.P
+New Account Message: References: orodruin public gateway: orodruin\.uta\.edu supercomputer local IP: 192\.168\.1\.5
+.
+.P
+Notes: You can use “passwd” the supercomputer to change your temp password (please do this as soon as possible)\. In order to connect (ssh) to the supercomputer, you must first ssh to the gateway to gain access to the local network\. For quick access, it’s recommend to set up RSA keys on both orodruin and the supercomputer\. An alternative to ssh\-ing twice would be the use of the Proxy Command in your local ~/\.ssh/config file\. (Unix/MacOS Only) Example (where $USER is your username): Host orodruin Hostname orodruin\.uta\.edu User $USER
+.
+.IP "" 4
+.
+.nf
+
+            Host supercomputer
+            ProxyCommand ssh \-q orodruin nc 192\.168\.1\.5 22
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Useful ssh/scp tips/commands Get your ssh keys setup so you don’t have to type in your password twice\. See below\.
+.
+.P
+Config method above is a good suggestion\. Alternatively you can set aliases for following tasks:
+.
+.P
+One line ssh through gateway:
+.
+.P
+ssh \-t \-YX orodruin\.uta\.edu \'ssh \-YX 192\.168\.1\.5\'\'
+.
+.P
+Copy through gateway:
+.
+.P
+scp \-o ProxyCommand="ssh orodruin\.uta\.edu nc 192\.168\.1\.5 22" "192\.168\.1\.5:$1" "$2"
+.
+.P
+scp \-o ProxyCommand="ssh orodruin\.uta\.edu nc 192\.168\.1\.5 22" $1 "192\.168\.1\.5:$2"
+.
+.P
+Unix Shell\- this is the program that runs when you start a terminal\. Takes text input at prompt\. Performs basic file manipulations and launches executables\. Some basics: ls, cd, cp, mv, rm, mkdir Wildcards: \.\., \., \fI,\fR\.\fI, Blah\fR\.txt\. redirection/piping ( >, | ) more, grep, wc, touch Examples:
+.
+.P
+afarbin@supercomputer:~$ mkdir Tutorial afarbin@supercomputer:~$ cd Tutorial/ afarbin@supercomputer:~/Tutorial$ cat > Hello\.txt I say hello\. \fIcntl\-d\fR afarbin@supercomputer:~/Tutorial$ more Hello\.txt I say hello\. afarbin@supercomputer:~/Tutorial$ cp Hello\.txt Hello\.1\.txt afarbin@supercomputer:~/Tutorial$ ls Hello\.1\.txt Hello\.txt afarbin@supercomputer:~/Tutorial$ ls \-l total 1 \-rw\-rw\-r\-\- 1 afarbin afarbin 13 Sep 22 17:53 Hello\.1\.txt \-rw\-rw\-r\-\- 1 afarbin afarbin 13 Sep 22 17:51 Hello\.txt afarbin@supercomputer:~/Tutorial$ ls > FilesInThisDirectory\.txt afarbin@supercomputer:~/Tutorial$ ls \-l total 2 \-rw\-rw\-r\-\- 1 afarbin afarbin 47 Sep 22 17:54 FilesInThisDirectory\.txt \-rw\-rw\-r\-\- 1 afarbin afarbin 13 Sep 22 17:53 Hello\.1\.txt \-rw\-rw\-r\-\- 1 afarbin afarbin 13 Sep 22 17:51 Hello\.txt afarbin@supercomputer:~/Tutorial$ more FilesInThisDirectory\.txt FilesInThisDirectory\.txt Hello\.1\.txt Hello\.txtafarbin@supercomputer:~/Tutorial$ touch Hello\.txt afarbin@supercomputer:~/Tutorial$ ls \-l total 2 \-rw\-rw\-r\-\- 1 afarbin afarbin 47 Sep 22 17:54 FilesInThisDirectory\.txt \-rw\-rw\-r\-\- 1 afarbin afarbin 13 Sep 22 17:53 Hello\.1\.txt \-rw\-rw\-r\-\- 1 afarbin afarbin 13 Sep 22 17:55 Hello\.txt afarbin@supercomputer:~/Tutorial$ touch Foo\.Blah afarbin@supercomputer:~/Tutorial$ ls \-l total 2 \-rw\-rw\-r\-\- 1 afarbin afarbin 47 Sep 22 17:54 FilesInThisDirectory\.txt \-rw\-rw\-r\-\- 1 afarbin afarbin 0 Sep 22 17:56 Foo\.Blah \-rw\-rw\-r\-\- 1 afarbin afarbin 13 Sep 22 17:53 Hello\.1\.txt \-rw\-rw\-r\-\- 1 afarbin afarbin 13 Sep 22 17:55 Hello\.txt afarbin@supercomputer:~/Tutorial$ grep This * FilesInThisDirectory\.txt:FilesInThisDirectory\.txt afarbin@supercomputer:~/Tutorial$ grep say * Hello\.1\.txt:I say hello\. Hello\.txt:I say hello\. afarbin@supercomputer:~/Tutorial$ grep say * | wc 2 6 48 ssh/scp: Secure shell… encrypted\. ssh: connect to machine and start shell\. scp: copy\. ssh tunneling send other stuff through the encrypted connection\. Pipe remote port to local port: VNC: ssh \-t \-YX orodruin\.uta\.edu \'nohup ssh \-NfL 5901:127\.0\.0\.1:5900 192\.168\.1\.2\' ssh \-NfL 5901:127\.0\.0\.1:5901 orodruin\.uta\.edu
+.
+.P
+Digits: ssh \-t \-YX orodruin\.uta\.edu \'nohup ssh \-NfL 1337:127\.0\.0\.1:80 192\.168\.1\.5\' ssh \-NfL 1337:127\.0\.0\.1:1337 orodruin\.uta\.edu Environment Variables: Environment variables are key, string value pairs available to all programs to programs running in a shell\. They are commonly used to tell programs where important directories, libraries, etc are stored\. Usually, you will “source” a setup\.sh file to setup your environment for a given task\. printenv Example: afarbin@supercomputer:~/Tutorial$ X=5 afarbin@supercomputer:~/Tutorial$ echo $X 5 afarbin@supercomputer:~/Tutorial$ export TutorialDir=~/Tutorial afarbin@supercomputer:~/Tutorial$ echo $TutorialDir /home/afarbin/Tutorial
+.
+.P
+Important environment variables: PATH LD_LIBRARY_PATH
+.
+.P
+Editors: You need to be able to edit text files on the unix machines (and locally)\. Unfortunately, the most common and powerful editors require learning many key combination commands\. You’ll be working in an editor most of the time, so it is critical to quickly learn a Unix editor\. Copy/paste is very important (in both editor and using “clipboard” of the graphical system)\. Vi Emacs nano
+.
+.P
+Concepts & References: VirtualBox \- This is used to emulate a Linux OS on your Windows machine so you can practice\. If you want to go through the effort of learning how to “dual boot” it’ll teach you a lot but it is not required\. https://www\.virtualbox\.org/wiki/Downloads http://askubuntu\.com/questions/666631/how\-can\-i\-dual\-boot\-windows\-10\-and\-ubuntu\-on\-a\-uefi\-hp\-notebook Ubuntu \- This is a standard distribution (read as: “flavor”) of Linux that is user friendly and will help you get started understanding the core fundamentals of Linux\. http://www\.ubuntu\.com/ Bash \- This is the programming language that is most commonly used to interact with a Linux computer in a non\-graphical manner (aka a shell)\. https://www\.codecademy\.com/en/courses/learn\-the\-command\-line/lessons/environment/exercises/bash\-profile http://linuxcommand\.org/learning_the_shell\.php SSH \- This is a protocol for connecting to another machine using Bash https://www\.digitalocean\.com/community/tutorials/how\-to\-use\-ssh\-to\-connect\-to\-a\-remote\-server\-in\-ubuntu Python \- This is the primary programming language we use to write actual code to process data\. (Usually one would execute a python program from a bash shell\.) https://www\.codecademy\.com/learn/python Pip \- This is a package manager for python\. It handles installing updating, and removing non\-standard python libraries / packages\. https://pip\.pypa\.io/en/stable/installing/ Tensorflow / Keras \- This is a python framework used to build neural networks and a lot of other fancy things\. https://www\.tensorflow\.org/ https://www\.tensorflow\.org/versions/r0\.10/tutorials/mnist/beginners/index\.html <— basic NN intro, very beginner friendly http://colah\.github\.io/posts/2015\-09\-Visual\-Information/ http://colah\.github\.io/posts/2014\-10\-Visualizing\-MNIST/ <— VERY AWESOME, ALSO VERY GRAPHICALLY INTENSE http://playground\.tensorflow\.org/ https://keras\.io/ NumPy \- This is a matrix manipulation library, not critical to know but helpful nonetheless\. http://www\.numpy\.org/ DLKit \- This is our learning framework build on Keras\. https://bitbucket\.org/anomalousai/dlkit GitHub \- This is where you should store code, it uses the git protocol which is dead simple! https://github\.com/ <— Make an account plz https://github\.com/UTA\-HEP\-Computing <— This is our organization’s “repo” aka repository aka place where we store code and documentation\. https://www\.codecademy\.com/learn/learn\-git Extra Credit \- Docker \- This is kind of like Virtual Box but not really, too much of an explanation for an email\. https://www\.docker\.com/
+.
+.P
+Things To Do: Install Ubuntu in VirtualBox\. Install Tensorflow (w/ pip) and do the MNST Beginner Tutorial in the Ubuntu VM\. Sign up for GitHub and email me your username\.
+.
+.P
+Machine Learning Basics Python Python is an interpreted programming language is widely used because almost every software package has an python API, so you can take various packages and integrate them easily to do something new\. And that’s exactly what we are doing here\.
+.
+.P
+Basics Start python: afarbin@supercomputer:~/Tutorial$ python Python 2\.7\.12 (default, Jul 1 2016, 15:12:24) [GCC 5\.4\.0 20160609] on linux2 Type "help", "copyright", "credits" or "license" for more information\.
+.
+.P
+python \-i MyFile\.py Numpy We will be manipulating data, which are primarily numbers that we store in tensors (n\-dimensional arrays)\. Numpy provides a tensor interface/representation that is commonly used\. If you are unfamiliar with numpy, this quick start will get you going:
+.
+.P
+http://docs\.scipy\.org/doc/numpy/user/quickstart\.html
+.
+.P
+HDF5 We will store our numpy tensors in HDF5 format\. HDF5’s python API is very powerful and simple to use\. Here is a quick start:
+.
+.P
+http://docs\.h5py\.org/en/latest/quick\.html
+.
+.P
+Note that HDF5 is a storage format, but data can be represented in different ways\. Two common ways that data we will use may be stored is using pytables:
+.
+.P
+http://www\.pytables\.org/usersguide/tutorials\.html
+.
+.P
+Or pandas:
+.
+.P
+http://pandas\.pydata\.org/pandas\-docs/stable/10min\.html
+.
+.P
+Keras, Theano, TensorFlow and all that Insert Intro Here…
+.
+.P
+Setup files on supercomputer can be found in:
+.
+.P
+afarbin@supercomputer:~/Tutorial$ ls /setups setup_cuda\-7\.5\.sh setup_cuda\-8\.0\.sh setup_root\.sh setup_virtualenv\.sh
+.
+.P
+Let’s make a local install of Keras in your tutorial directory (do this only once):
+.
+.P
+source /setups/setup_virtualenv\.sh mkvirtualenv keras pip install keras \fINote\fR if keras throws an error about not finding tensor flow, the ‘backend’ key in ~/\.keras/keras\.json must be set to ‘theano’ We will need a few more things… lets install them:
+.
+.P
+(kera (keras) afarbin@supercomputer:~/Tutorial/DLKit$ pip install rootpy Collecting rootpy Downloading rootpy\-0\.8\.3\.tar\.gz (417kB) 100% |████████████████████████████████| 419kB 1\.7MB/s Building wheels for collected packages: rootpy Running setup\.py bdist_wheel for rootpy \.\.\. done Stored in directory: /home/afarbin/\.cache/pip/wheels/e4/25/a3/2145bdbe8f3a75ca000ec279147127025daf28760256f9122c Successfully built rootpy Installing collected packages: rootpy Successfully installed rootpy\-0\.8\.3
+.
+.P
+pip install h5py pip install matplotlib
+.
+.P
+Every time you want to work with keras, you need to setup your environment for your keras install after login:
+.
+.P
+afarbin@supercomputer:~$ cd Tutorial/ afarbin@supercomputer:~/Tutorial$ source /setups/setup_virtualenv\.sh afarbin@supercomputer:~/Tutorial$ source /setups/setup_cuda\-8\.0\.sh afarbin@supercomputer:~/Tutorial$ source /setups/setup_root\.sh afarbin@supercomputer:~/Tutorial$ workon keras
+.
+.P
+This actually setups up keras, CUDA (NVidia’s GPU programming language), and ROOT (HEP analysis suite)\. DLKit Keras is actually very simple to use and there are plenty of nice tutorials and examples out there for you to learn from and build on\. DLKit is a very lightweight wrapper that makes it easy to try lots of different Deep NN models, save and retrieve them, run them on a batch system, etc\. Also, it makes it easier to build standalone Deep Learning examples that all use the same basic infrastructure\. You are welcome to use Keras directly\. Overtime, you’ll probably build something that resembles DLKit to help you do stuff\.
+.
+.P
+Let’s checkout DLKit and EventClassificationDNN, the example DL job we will be running\. You can browse the code at:
+.
+.P
+https://bitbucket\.org/anomalousai/dlkit/src https://github\.com/UTA\-HEP\-Computing/EventClassificationDNN
+.
+.P
+afarbin@supercomputer:~/Tutorial$ git clone https://bitbucket\.org/anomalousai/DLKit Cloning into \'DLKit\'\.\.\. remote: Counting objects: 32, done\. remote: Compressing objects: 100% (29/29), done\. remote: Total 32 (delta 5), reused 0 (delta 0) Unpacking objects: 100% (32/32), done\. Checking connectivity\.\.\. done\. afarbin@supercomputer:~/Tutorial$ cd DLKit/ afarbin@supercomputer:~/Tutorial/DLKit$ ls DLAnalysis DLModels DLTools \fBinit\fR\.py setup\.sh afarbin@supercomputer:~/Tutorial/DLKit$ git clone https://github\.com/UTA\-HEP\-Computing/EventClassificationDNN Cloning into \'EventClassificationDNN\'\.\.\. remote: Counting objects: 32, done\. remote: Total 32 (delta 0), reused 0 (delta 0), pack\-reused 32 Unpacking objects: 100% (32/32), done\. Checking connectivity\.\.\. done\.
+.
+.P
+Now let’s try running the example:
+.
+.P
+(keras) afarbin@supercomputer:~/Tutorial/DLKit$ python \-m EventClassificationDNN\.Experiment Using VarSet: 0 Using GPU HyperParameter Scan: 1 possible combinations\. Picked combination: 0 Model Filename: EventClassificationDNN_128_2_categorical_crossentropy Using Theano backend\. Using gpu device 0: GeForce GTX TITAN X (CNMeM is disabled, cuDNN 5105)
+.
+.P
+Walk through EventClassificationDNN/Experiment\.py: This is the “experiment” that drives everything\.
+.
+.P
+(keras) afarbin@supercomputer:~/Tutorial/DLKit$ python \-m EventClassificationDNN\.Experiment \-\-help usage: Experiment\.py [\-h] [\-C CONFIG] [\-I INPUTDATA] [\-L LOADMODEL] [\-\-gpu GPUID] [\-\-cpu] [\-\-NoTrain] [\-s HYPERPARAMSET] [\-v VARSET] [\-\-NoResults]
+.
+.P
+optional arguments: \-h, \-\-help show this help message and exit \-C CONFIG, \-\-config CONFIG \-I INPUTDATA, \-\-inputdata INPUTDATA \-L LOADMODEL, \-\-LoadModel LOADMODEL \-\-gpu GPUID \-\-cpu \-\-NoTrain \-s HYPERPARAMSET, \-\-hyperparamset HYPERPARAMSET \-v VARSET, \-\-varset VARSET \-\-NoResults
+.
+.P
+Let’s go through the stages of the experiment\.
+.
+.P
+Parse the arguments\. Parse the Configuration\. Load the data\. Select data samples/classes Select input variables\. Normalize the data\. Load or Build the Model\. Train\. Assess the performance\.
+.
+.P
+EventClassificationDNN/Arguments\.py: This is the file where all of the above arguments are defined and parsed\. You can add your own options here if need be\.
+.
+.P
+EventClassificationDNN/InputFiles\.py: This contains the list of input files\.
+.
+.P
+EventClassificationDNN/ScanConfig\.py: This is the configuration file\. The model and experiment parameters are set here\. This example is setup to allow scanning\.
+.
+.P
+EventClassificationDNN/Classification\.py: This contains the keras model, wrapped in a DLKit ModelWrapper class\.
+.
+.P
+EventClassificationDNN/Analysis\.py: This contains the analysis that is performed at the end to see how well we did\.
+.
+.P
+EventClassificationDNN/InputVars\.py: This controls what variables are used in the Neural Network\.
+.
+.P
+EventClassificationDNN/CSVWriter\.py: This dumps the results in a format readable to ROOT\.
+.
+.P
+EventClassificationDNN/MultiClassTools\.py: This is the tool that reads the h5 files and creates the training and testing datasets\.

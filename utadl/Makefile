@@ -29,3 +29,8 @@ run:
 
 install:
 	cp bin/utadl /usr/local/bin
+	cp man/*.1 /usr/local/man/man1
+
+uninstall:
+	rm /usr/local/man/man1/utadl_*
+	rm /usr/local/bin/utadl

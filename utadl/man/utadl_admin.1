@@ -1,0 +1,273 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.IP "1." 4
+ZFS
+.
+.IP "2." 4
+Managing Users
+.
+.IP "3." 4
+NFS
+.
+.IP "4." 4
+DNS
+.
+.IP "5." 4
+Package Manager Configuration (apt\-get)
+.
+.IP "6." 4
+Node setup instructions
+.
+.IP "" 0
+.
+.SH "1\. ZFS"
+.
+.P
+The data stores for both cold storage (\fB/data\fR) and user workspaces (\fB/scratch\fR) are managed by ZFS\. Ubuntu 16\.04+ natively supports ZFS and therefore no additional packages are needed\.
+.
+.IP "" 4
+.
+.nf
+
+root@supercomputer:~# zpool status
+ pool: scratch
+ state: ONLINE
+  scan: none requested
+config:
+
+    NAME                                                      STATE     READ WRITE CKSUM
+    scratch                                                   ONLINE       0     0     0
+        ata\-XXXXXXXXXXX\-XXXXXXXXXXXXXXX                       ONLINE       0     0     0
+
+errors: No known data errors
+
+  pool: data
+ state: ONLINE
+  scan: scrub repaired 0 in 10h13m with 0 errors on Sun Nov 13 10:37:18 2016
+config:
+
+    NAME                                 STATE     READ WRITE CKSUM
+    data                                 ONLINE       0     0     0
+      raidz1\-0                           ONLINE       0     0     0
+        sda                              ONLINE       0     0     0
+        ata\-XXXXXXXXXXX\-XXXXXXXXXXXXXXX  ONLINE       0     0     0
+        ata\-XXXXXXXXXXX\-XXXXXXXXXXXXXXX  ONLINE       0     0     0
+        ata\-XXXXXXXXXXX\-XXXXXXXXXXXXXXX  ONLINE       0     0     0
+        ata\-XXXXXXXXXXX\-XXXXXXXXXXXXXXX  ONLINE       0     0     0
+    logs
+      nvme0n1p4                          ONLINE       0     0     0
+    cache
+      nvme0n1p3                          ONLINE       0     0     0
+
+errors: No known data errors
+
+root@supercomputer:~# zfs list
+.
+.fi
+.
+.IP "" 0
+.
+.IP "\(bu" 4
+https://github\.com/zfsonlinux/zfs/wiki/Ubuntu
+.
+.IP "\(bu" 4
+http://open\-zfs\.org/wiki/System_Administration
+.
+.IP "\(bu" 4
+http://www\.howtogeek\.com/272220/how\-to\-install\-and\-use\-zfs\-on\-ubuntu\-and\-why\-youd\-want\-to/
+.
+.IP "" 0
+.
+.P
+Can non\-sudoers use the ZFS commands? \fBNo\fR
+.
+.SH "2\. Managing Users"
+.
+.P
+Users are primarily managed via LDAP and therefore may be managed by something like the phpldapadmin web interface or Apache Directory Studio\.
+.
+.IP "" 4
+.
+.nf
+
+TODO
+.
+.fi
+.
+.IP "" 0
+.
+.IP "\(bu" 4
+https://www\.digitalocean\.com/community/tutorials/how\-to\-install\-and\-configure\-a\-basic\-ldap\-server\-on\-an\-ubuntu\-12\-04\-vps
+.
+.IP "\(bu" 4
+https://www\.digitalocean\.com/community/tutorials/how\-to\-authenticate\-client\-computers\-using\-ldap\-on\-an\-ubuntu\-12\-04\-vps
+.
+.IP "\(bu" 4
+https://help\.ubuntu\.com/community/LDAPClientAuthentication
+.
+.IP "" 0
+.
+.P
+TBD [[[ On all clients (so users can change passwords): sudo nano /etc/pam\.d/common\-password remove the tag "use_authtok" ]]]
+.
+.SH "3\. NFS / Autofs"
+.
+.P
+The data stores and user home directories are shared throughout the cluster via NFS\. Proper configuration of the /etc/exports file is imperative! Autofs is the client daemon of choice to mount exported NFS volume\.
+.
+.IP "" 4
+.
+.nf
+
+TODO
+.
+.fi
+.
+.IP "" 0
+.
+.IP "\(bu" 4
+https://www\.digitalocean\.com/community/tutorials/how\-to\-set\-up\-an\-nfs\-mount\-on\-ubuntu\-16\-04
+.
+.IP "\(bu" 4
+https://help\.ubuntu\.com/community/Autofs
+.
+.IP "" 0
+.
+.SH "4\. DNS"
+.
+.SH "5\. Package Manager"
+.
+.P
+Things like unattended upgrades can cause headaches when attempting to debug seemingly random kernel errors\. Often the cause of the error can be attributed to the automatic update of the kernel by unattended upgrades or other equivalent software\. It is possible that the kernel headers for the current kernel are not installed, or a particular network driver (Mellanox) is not registered with DKMS and therefore the kernel module must be rebuilt for the current kernel version\.
+.
+.P
+To check the version of the kernel current running\.
+.
+.IP "" 4
+.
+.nf
+
+root@supercomputer:~# uname \-a
+Linux supercomputer 4\.4\.0\-47\-generic #68\-Ubuntu SMP Wed Oct 26 19:39:52 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To install the header files for the version of the kernel current running\.
+.
+.IP "" 4
+.
+.nf
+
+root@supercomputer:~# apt\-get install linux\-headers\-$(uname \-r)
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To force a DKMS rebuild of the kernel modules for the version of the kernel current running\.
+.
+.IP "" 4
+.
+.nf
+
+root@supercomputer:~# /usr/lib/dkms/dkms_autoinstaller start $(uname \-r)
+.
+.fi
+.
+.IP "" 0
+.
+.SH "X\. Node setup instructions"
+.
+.IP "1." 4
+Install Ubuntu Server 16 LTS
+.
+.IP "2." 4
+partition %s\.\.\.
+.
+.IP "" 0
+.
+.P
+ii\. Select ssh server under install packages
+.
+.IP "1." 4
+Update/Upgrade packages
+.
+.IP "2." 4
+Install Nvidia driver
+.
+.IP "3." 4
+add PPA, blacklist nouveau
+.
+.IP "" 0
+.
+.P
+ii\. Check nvidia\-smi to make sure GPUs are popping up correctly
+.
+.IP "1." 4
+Install CUDA\-8
+.
+.IP "2." 4
+Cuda located in /resource directories on other machines, scp folder (until dedicated nfs mount is up)
+.
+.IP "3." 4
+Copy CUDNN files
+.
+.IP "4." 4
+insert guide here
+.
+.IP "5." 4
+Setup Autofs
+.
+.IP "6." 4
+refer to guides above (basically copy config from working machine)
+.
+.IP "7." 4
+Setup LDAP client
+.
+.IP "8." 4
+also refer to above section
+.
+.IP "9." 4
+Setup the following packages (not ordered):
+.
+.IP "10." 4
+root
+.
+.IP "" 0
+.
+.P
+ii\. virtualenv
+.
+.P
+iii\. Torque
+.
+.P
+iv\. htop, i7z, iperf
+.
+.IP "1." 4
+
+.
+.IP "" 0
+.
+.P
+DLKit
+.
+.P
+iperf speed test on network
+.
+.P
+Make sure NFS mounts are working / persistent over reboot (Autofs should take care of this)
+.
+.P
+Test LDAP w/ setting up test account and logging in\.
+.
+.P
+Make sure GPUs are popping up on nvidia\-smi
+.
+.P
+Run tensorflow GPU test\.

@@ -1,4 +1,4 @@
-#Hello! The Check [wiki](https://github.com/UTA-HEP-Computing/Documentation/wiki) at top of page for general documentation.
+#Hello! Check [wiki](https://github.com/UTA-HEP-Computing/Documentation/wiki) at top of page for general documentation.
 
 #Respository Contents:
 

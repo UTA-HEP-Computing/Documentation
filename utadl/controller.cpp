@@ -89,6 +89,7 @@ void Controller::sshkey()
 	if (!isroot())
 	{
 		system("ssh-keygen -f ~/.ssh/id_rsa -q -N \"\" ");
+		system("cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys");
 		return;
 	}
 

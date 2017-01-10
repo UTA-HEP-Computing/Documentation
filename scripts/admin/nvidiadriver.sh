@@ -6,7 +6,7 @@
 
 apt-get update
 
-sudo add-apt-repository ppa:graphics-drivers/ppa
-sudo apt update
+add-apt-repository ppa:graphics-drivers/ppa
+apt-get update
 
 apt-get install nvidia-375

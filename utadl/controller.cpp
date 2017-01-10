@@ -71,7 +71,7 @@ void Controller::nodes()
 
 void Controller::users()
 {
-	vector <string> userlist = bashout("who", 1);
+	vector <string> userlist = bashout("who", 40); // 
 	v.printlist(userlist);
 }
 

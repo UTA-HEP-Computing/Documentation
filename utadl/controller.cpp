@@ -36,6 +36,10 @@ void Controller::CLI(int argc, char** argv)
 			guide(argv);
 			break;
 
+		case 7:
+			virtualsetup();
+			break;
+
 		default:
 			v.errorout(1);
 		}
@@ -71,7 +75,7 @@ void Controller::nodes()
 
 void Controller::users()
 {
-	vector <string> userlist = bashout("who", 40); // 
+	vector <string> userlist = bashout("who", 40); //
 	v.printlist(userlist);
 }
 
@@ -115,4 +119,18 @@ void Controller::guide(char ** argv)
 	default:
 		v.errorout(1);
 	}
+}
+
+void Controller::virtualsetup()
+{
+	if (!isroot())
+	{
+		system("cd ~/code/random/tests\
+		&& virtualenv -p /usr/bin/python2.7 Keras\
+		&& source Keras/bin/activate\
+		&& pip install -r /tmp/requirements.txt\
+		&& pip install tensorflow-gpu");
+		return;
+	}
+	v.errorout(3);
 }

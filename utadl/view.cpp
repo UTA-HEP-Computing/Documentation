@@ -65,7 +65,7 @@ void View::errorout(int errarg)
 		        << "ERROR 2: No arguments specified." << endl
 		        << helpstr << endl;
 		break;
-	
+
 	case 3:
 		cerr
 				<< "ERROR 3: Cannot run command with sudo." << endl;

@@ -19,6 +19,7 @@ public:
 	void torque(int argc, char** argv);
 	void sshkey();
 	void guide(char ** argv);
+	void virtualsetup();
 
 
 private:

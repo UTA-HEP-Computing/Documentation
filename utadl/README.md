@@ -1,9 +1,9 @@
-utadl is a general cli tool for use on the UTA HEP DL cluster. Created to help users getting familiar 
+utadl is a general cli tool for use on the UTA HEP DL cluster. Created to help users getting familiar
 
 
 ---------
 
-Use cases: 
+Use cases:
 
 general:
 
@@ -37,7 +37,7 @@ utadl:
 
 	-t or -torque
 	runs torque form generator, make one liner option (-c)
-		-c [or -create] one liner args that generates 
+		-c [or -create] one liner args that generates
 		-l [or -list] lists torque jobs
 	-lu or -users
 	list users and if they're running a job (system resource usage)
@@ -57,7 +57,7 @@ utadl:
 General Notes:
 - Make install will copy executable to /usr/local/bin which will be in $PATH, a configure file is not provided so if a different directory is desired it will need to be installed by hand.
 
-- 
+-
 
 
 Code Notes:
@@ -74,4 +74,4 @@ Code Notes:
 
 - switch to cpp based pinger insteaf of system("nmap") hack.
 
-- Would be neat if -g pulled from web, and if net is down load an offline release. 
+- Would be neat if -g pulled from web, and if net is down load an offline release.

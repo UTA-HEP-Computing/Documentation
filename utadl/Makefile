@@ -17,9 +17,9 @@ controller.o: controller.h
 
 validator.o: validator.h
 	$(CXX) $(CXXFLAGS) -c validator.cpp
-	
+
 clean:
-	rm *.o 
+	rm *.o
 
 delete:
 	rm -r bin
@@ -34,6 +34,7 @@ install:
 uninstall:
 	rm /usr/local/man/man1/utadl_*
 	rm /usr/local/bin/utadl
+
 
 make test:
 	@echo ""

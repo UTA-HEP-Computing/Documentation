@@ -1,7 +1,7 @@
 #include "validator.h"
 
-const std::vector <std::string> stags = {"-h", "-i", "-ln", "-lu", "-t", "-sk", "-g"};
-const std::vector <std::string> ltags = {"-help", "-interact", "-nodes", "-users", "-torque", "-sshkey", "-guide"};
+const std::vector <std::string> stags = {"-h", "-i", "-ln", "-lu", "-t", "-sk", "-g", "-v"};
+const std::vector <std::string> ltags = {"help", "interact", "nodes", "users", "torque", "sshkey", "guide", "virtual"};
 
 const std::vector <std::string> gtags = {"admin", "home", "dlkit"};
 
@@ -38,7 +38,7 @@ const int argselector(int argselect, int parseselect, char ** argv)
 			}
 		}
 		break;
-	
+
 	case 1:
 		for (int i = 0; i < (int)gtags.size(); i++)
 		{

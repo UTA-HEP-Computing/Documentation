@@ -1,3 +1,5 @@
+#USAGE: root$ cat queue_config.torque | gmgr
+
 delete queue gpu_queue
 delete queue gpu_super
 delete queue gpu_thingone

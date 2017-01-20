@@ -1,0 +1,220 @@
+delete queue gpu_queue
+delete queue gpu_super
+delete queue gpu_thingone
+delete queue gpu_thingtwo
+
+delete queue gpu0super
+delete queue gpu1super
+delete queue gpu2super
+delete queue gpu3super
+delete queue gpu0thingone
+delete queue gpu1thingone
+delete queue gpu2thingone
+delete queue gpu3thingone
+delete queue gpu0thingtwo
+delete queue gpu1thingtwo
+delete queue gpu2thingtwo
+delete queue gpu3thingtwo
+
+delete queue cpu_queue
+delete queue cpu_super
+delete queue cpu_ditto
+delete queue cpu_thingone
+delete queue cpu_thingtwo
+
+create queue cpu_queue
+set queue cpu_queue queue_type = Route
+set queue cpu_queue route_destinations = cpu_super
+set queue cpu_queue route_destinations += cpu_ditto
+set queue cpu_queue route_destinations += cpu_thingone
+set queue cpu_queue route_destinations += cpu_thingtwo
+set queue cpu_queue enabled = True
+set queue cpu_queue started = True
+
+create queue cpu_super
+set queue cpu_super queue_type = Execution
+set queue cpu_super max_running = 48
+set queue cpu_super max_queuable = 48
+set queue cpu_super resources_default.nodes = supercomputer
+set queue cpu_super resources_default.walltime = 12:00:00
+set queue cpu_super enabled = True
+set queue cpu_super started = True
+
+create queue cpu_ditto
+set queue cpu_ditto queue_type = Execution
+set queue cpu_ditto max_running = 12
+set queue cpu_ditto max_queuable = 12
+set queue cpu_ditto resources_default.nodes = thingone
+set queue cpu_ditto resources_default.walltime = 12:00:00
+set queue cpu_ditto enabled = True
+set queue cpu_ditto started = True
+
+create queue cpu_thingone
+set queue cpu_thingone queue_type = Execution
+set queue cpu_thingone max_running = 12
+set queue cpu_thingone max_queuable = 12
+set queue cpu_thingone resources_default.nodes = thingone
+set queue cpu_thingone resources_default.walltime = 12:00:00
+set queue cpu_thingone enabled = True
+set queue cpu_thingone started = True
+
+create queue cpu_thingtwo
+set queue cpu_thingtwo queue_type = Execution
+set queue cpu_thingtwo max_running = 12
+set queue cpu_thingtwo max_queuable = 12
+set queue cpu_thingtwo resources_default.nodes = thingtwo
+set queue cpu_thingtwo resources_default.walltime = 12:00:00
+set queue cpu_thingtwo enabled = True
+set queue cpu_thingtwo started = True
+
+create queue gpu_queue
+set queue gpu_queue queue_type = Route
+set queue gpu_queue route_destinations = gpu0super
+set queue gpu_queue route_destinations += gpu1super
+set queue gpu_queue route_destinations += gpu2super
+set queue gpu_queue route_destinations += gpu3super
+set queue gpu_queue route_destinations += gpu0thingone
+set queue gpu_queue route_destinations += gpu1thingone
+set queue gpu_queue route_destinations += gpu2thingone
+set queue gpu_queue route_destinations += gpu3thingone
+set queue gpu_queue route_destinations += gpu0thingtwo
+set queue gpu_queue route_destinations += gpu1thingtwo
+set queue gpu_queue route_destinations += gpu2thingtwo
+set queue gpu_queue route_destinations += gpu3thingtwo
+set queue gpu_queue enabled = True
+set queue gpu_queue started = True
+
+create queue gpu_super
+set queue gpu_super queue_type = Route
+set queue gpu_super route_destinations = gpu0super
+set queue gpu_super route_destinations += gpu1super
+set queue gpu_super route_destinations += gpu2super
+set queue gpu_super route_destinations += gpu3super
+set queue gpu_super enabled = True
+set queue gpu_super started = True
+
+create queue gpu0super
+set queue gpu0super queue_type = Execution
+set queue gpu0super max_running = 1
+set queue gpu0super max_queuable = 1
+set queue gpu0super resources_default.nodes = supercomputer
+set queue gpu0super resources_default.walltime = 12:00:00
+set queue gpu0super enabled = True
+set queue gpu0super started = True
+
+create queue gpu1super
+set queue gpu1super queue_type = Execution
+set queue gpu1super max_running = 1
+set queue gpu1super max_queuable = 1
+set queue gpu1super resources_default.nodes = supercomputer
+set queue gpu1super resources_default.walltime = 12:00:00
+set queue gpu1super enabled = True
+set queue gpu1super started = True
+
+create queue gpu2super
+set queue gpu2super queue_type = Execution
+set queue gpu2super max_running = 1
+set queue gpu2super max_queuable = 1
+set queue gpu2super resources_default.nodes = supercomputer
+set queue gpu2super resources_default.walltime = 12:00:00
+set queue gpu2super enabled = True
+set queue gpu2super started = True
+
+create queue gpu3super
+set queue gpu3super queue_type = Execution
+set queue gpu3super max_running = 1
+set queue gpu3super max_queuable = 1
+set queue gpu3super resources_default.nodes = supercomputer
+set queue gpu3super resources_default.walltime = 12:00:00
+set queue gpu3super enabled = True
+set queue gpu3super started = True
+
+create queue gpu_thingone
+set queue gpu_thingone queue_type = Route
+set queue gpu_thingone route_destinations = gpu0thingone
+set queue gpu_thingone route_destinations += gpu1thingone
+set queue gpu_thingone route_destinations += gpu2thingone
+set queue gpu_thingone route_destinations += gpu3thingone
+set queue gpu_thingone enabled = True
+set queue gpu_thingone started = True
+
+create queue gpu0thingone
+set queue gpu0thingone queue_type = Execution
+set queue gpu0thingone max_running = 1
+set queue gpu0thingone max_queuable = 1
+set queue gpu0thingone resources_default.nodes = thingone
+set queue gpu0thingone resources_default.walltime = 12:00:00
+set queue gpu0thingone enabled = True
+set queue gpu0thingone started = True
+
+create queue gpu1thingone
+set queue gpu1thingone queue_type = Execution
+set queue gpu1thingone max_running = 1
+set queue gpu1thingone max_queuable = 1
+set queue gpu1thingone resources_default.nodes = thingone
+set queue gpu1thingone resources_default.walltime = 12:00:00
+set queue gpu1thingone enabled = True
+set queue gpu1thingone started = True
+
+create queue gpu2thingone
+set queue gpu2thingone queue_type = Execution
+set queue gpu2thingone max_running = 1
+set queue gpu2thingone max_queuable = 1
+set queue gpu2thingone resources_default.nodes = thingone
+set queue gpu2thingone resources_default.walltime = 12:00:00
+set queue gpu2thingone enabled = True
+set queue gpu2thingone started = True
+
+create queue gpu3thingone
+set queue gpu3thingone queue_type = Execution
+set queue gpu3thingone max_running = 1
+set queue gpu3thingone max_queuable = 1
+set queue gpu3thingone resources_default.nodes = thingone
+set queue gpu3thingone resources_default.walltime = 12:00:00
+set queue gpu3thingone enabled = True
+set queue gpu3thingone started = True
+
+create queue gpu_thingtwo
+set queue gpu_thingtwo queue_type = Route
+set queue gpu_thingtwo route_destinations = gpu0thingtwo
+set queue gpu_thingtwo route_destinations += gpu1thingtwo
+set queue gpu_thingtwo route_destinations += gpu2thingtwo
+set queue gpu_thingtwo route_destinations += gpu3thingtwo
+set queue gpu_thingtwo enabled = True
+set queue gpu_thingtwo started = True
+
+create queue gpu0thingtwo
+set queue gpu0thingtwo queue_type = Execution
+set queue gpu0thingtwo max_running = 1
+set queue gpu0thingtwo max_queuable = 1
+set queue gpu0thingtwo resources_default.nodes = thingtwo
+set queue gpu0thingtwo resources_default.walltime = 12:00:00
+set queue gpu0thingtwo enabled = True
+set queue gpu0thingtwo started = True
+
+create queue gpu1thingtwo
+set queue gpu1thingtwo queue_type = Execution
+set queue gpu1thingtwo max_running = 1
+set queue gpu1thingtwo max_queuable = 1
+set queue gpu1thingtwo resources_default.nodes = thingtwo
+set queue gpu1thingtwo resources_default.walltime = 12:00:00
+set queue gpu1thingtwo enabled = True
+set queue gpu1thingtwo started = True
+
+create queue gpu2thingtwo
+set queue gpu2thingtwo queue_type = Execution
+set queue gpu2thingtwo max_running = 1
+set queue gpu2thingtwo max_queuable = 1
+set queue gpu2thingtwo resources_default.nodes = thingtwo
+set queue gpu2thingtwo resources_default.walltime = 12:00:00
+set queue gpu2thingtwo enabled = True
+set queue gpu2thingtwo started = True
+
+create queue gpu3thingtwo
+set queue gpu3thingtwo queue_type = Execution
+set queue gpu3thingtwo resources_default.nodes = thingtwo
+set queue gpu3thingtwo resources_default.walltime = 12:00:00
+set queue gpu3thingtwo max_running = 1
+set queue gpu3thingtwo max_queuable = 1
+set queue gpu3thingtwo enabled = True
+set queue gpu3thingtwo started = True

@@ -44,5 +44,5 @@ make test:
 	@echo "Testing node listing with sudo:"
 	sudo ./bin/utadl -ln
 	@echo ""
-	@echo "Opening man page, if this fails run sudo make install:"
+	@echo "Opening man page, if this fails install the man pages:"
 	./bin/utadl -g admin

@@ -1,0 +1,104 @@
+set queue cpu_queue route_destinations = cpu_thecount
+
+create queue cpu_thecount
+set queue cpu_thecount queue_type = Execution
+set queue cpu_thecount max_running = 88
+set queue cpu_thecount max_queuable = 88
+set queue cpu_thecount resources_default.nodes = thecount
+set queue cpu_thecount resources_default.walltime = 12:00:00
+set queue cpu_thecount enabled = True
+set queue cpu_thecount started = True
+
+set queue gpu_queue route_destinations = gpu0thecount
+set queue gpu_queue route_destinations += gpu1thecount
+set queue gpu_queue route_destinations += gpu2thecount
+set queue gpu_queue route_destinations += gpu3thecount
+set queue gpu_queue route_destinations += gpu4thecount
+set queue gpu_queue route_destinations += gpu5thecount
+set queue gpu_queue route_destinations += gpu6thecount
+set queue gpu_queue route_destinations += gpu7thecount
+
+create queue gpu_thecount
+set queue gpu_thecount queue_type = Route
+set queue gpu_thecount route_destinations = gpu0thecount
+set queue gpu_thecount route_destinations += gpu1thecount
+set queue gpu_thecount route_destinations += gpu2thecount
+set queue gpu_thecount route_destinations += gpu3thecount
+set queue gpu_thecount route_destinations += gpu4thecount
+set queue gpu_thecount route_destinations += gpu5thecount
+set queue gpu_thecount route_destinations += gpu6thecount
+set queue gpu_thecount route_destinations += gpu7thecount
+set queue gpu_thecount enabled = True
+set queue gpu_thecount started = True
+
+create queue gpu0thecount
+set queue gpu0thecount queue_type = Execution
+set queue gpu0thecount max_running = 1
+set queue gpu0thecount max_queuable = 1
+set queue gpu0thecount resources_default.nodes = thecount
+set queue gpu0thecount resources_default.walltime = 12:00:00
+set queue gpu0thecount enabled = True
+set queue gpu0thecount started = True
+
+create queue gpu1thecount
+set queue gpu1thecount queue_type = Execution
+set queue gpu1thecount max_running = 1
+set queue gpu1thecount max_queuable = 1
+set queue gpu1thecount resources_default.nodes = thecount
+set queue gpu1thecount resources_default.walltime = 12:00:00
+set queue gpu1thecount enabled = True
+set queue gpu1thecount started = True
+
+create queue gpu2thecount
+set queue gpu2thecount queue_type = Execution
+set queue gpu2thecount max_running = 1
+set queue gpu2thecount max_queuable = 1
+set queue gpu2thecount resources_default.nodes = thecount
+set queue gpu2thecount resources_default.walltime = 12:00:00
+set queue gpu2thecount enabled = True
+set queue gpu2thecount started = True
+
+create queue gpu3thecount
+set queue gpu3thecount queue_type = Execution
+set queue gpu3thecount max_running = 1
+set queue gpu3thecount max_queuable = 1
+set queue gpu3thecount resources_default.nodes = thecount
+set queue gpu3thecount resources_default.walltime = 12:00:00
+set queue gpu3thecount enabled = True
+set queue gpu3thecount started = True
+
+create queue gpu4thecount
+set queue gpu4thecount queue_type = Execution
+set queue gpu4thecount max_running = 1
+set queue gpu4thecount max_queuable = 1
+set queue gpu4thecount resources_default.nodes = thecount
+set queue gpu4thecount resources_default.walltime = 12:00:00
+set queue gpu4thecount enabled = True
+set queue gpu4thecount started = True
+
+create queue gpu5thecount
+set queue gpu5thecount queue_type = Execution
+set queue gpu5thecount max_running = 1
+set queue gpu5thecount max_queuable = 1
+set queue gpu5thecount resources_default.nodes = thecount
+set queue gpu5thecount resources_default.walltime = 12:00:00
+set queue gpu5thecount enabled = True
+set queue gpu5thecount started = True
+
+create queue gpu6thecount
+set queue gpu6thecount queue_type = Execution
+set queue gpu6thecount max_running = 1
+set queue gpu6thecount max_queuable = 1
+set queue gpu6thecount resources_default.nodes = thecount
+set queue gpu6thecount resources_default.walltime = 12:00:00
+set queue gpu6thecount enabled = True
+set queue gpu6thecount started = True
+
+create queue gpu7thecount
+set queue gpu7thecount queue_type = Execution
+set queue gpu7thecount max_running = 1
+set queue gpu7thecount max_queuable = 1
+set queue gpu7thecount resources_default.nodes = thecount
+set queue gpu7thecount resources_default.walltime = 12:00:00
+set queue gpu7thecount enabled = True
+set queue gpu7thecount started = True
